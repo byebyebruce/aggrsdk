@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/byebyebruce/autopublish/pkg/util"
+	"github.com/byebyebruce/aggrsdk/pkg/util"
 )
 
 // AASR_TASK_URL https://cloud.baidu.com/doc/SPEECH/s/ck5diijkt

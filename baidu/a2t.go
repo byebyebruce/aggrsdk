@@ -6,7 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/byebyebruce/autopublish/pkg/util"
+	"github.com/byebyebruce/aggrsdk/pkg/util"
 )
 
 const (

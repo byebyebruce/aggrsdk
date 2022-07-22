@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/byebyebruce/aggrsdk/pkg/pcm2wav"
+	"github.com/gordonklaus/portaudio"
 )
 
 // ref https://github.dev/evanphx/hear
@@ -14,11 +15,11 @@ import (
 // umOutputChannels 0
 // sampleRate 16000
 func Hear2Pcm(maxDuration, quietDurationToStop time.Duration) ([]byte, error) {
-	err := InitAudio()
+	err := portaudio.Initialize()
 	if err != nil {
 		return nil, err
 	}
-	defer FreeAudio()
+	defer portaudio.Terminate()
 
 	opts := ListenOpts{
 		QuietDuration:    quietDurationToStop,

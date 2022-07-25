@@ -29,7 +29,7 @@ func TestAudio2Text(t *testing.T) {
 
 func TestAASR(t *testing.T) {
 	a := NewAPI_Util(apiKey, apiSecret)
-	tmp := "http://81.70.119.61:8088/fs/a.mp4_audio.wav"
+	tmp := "http://127.0.0.1:8088/fs/a.mp4_audio.wav"
 	text, err := a.QueryAASR(tmp, "wav", 1737)
 	if err != nil {
 		t.Error(err.Error())

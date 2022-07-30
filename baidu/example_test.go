@@ -12,7 +12,7 @@ var (
 
 func TestText2AudioFile(t *testing.T) {
 	a := NewAPI_Util(apiKey, apiSecret)
-	err := a.Text2AudioFile("tmp.mp3", "haha")
+	err := a.Text2AudioFile("tmp.wav", "请问今天北京的天气怎么样", WAV)
 	if err != nil {
 		t.Error(err.Error())
 	}

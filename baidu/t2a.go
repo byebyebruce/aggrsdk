@@ -10,8 +10,17 @@ import (
 
 const TSN_URL = "http://tsn.baidu.com/text2audio"
 
-func (this *API_Util) Text2AudioFile(filePath, text string) error {
-	body, err := this.Text2AudioBytes(text)
+type TSNAudioType string
+
+const (
+	MP3    TSNAudioType = "3" // 3为mp3格式(默认)
+	PCM16K TSNAudioType = "4" // 4为pcm-16k
+	PCM8K  TSNAudioType = "5" // 5为pcm-8k
+	WAV    TSNAudioType = "6" // 6为wav
+)
+
+func (this *API_Util) Text2AudioFile(filePath, text string, t TSNAudioType) error {
+	body, err := this.Text2AudioBytes(text, t)
 	if err != nil {
 		return err
 	}
@@ -22,7 +31,7 @@ func (this *API_Util) Text2AudioFile(filePath, text string) error {
 	return nil
 }
 
-func (this *API_Util) Text2AudioBytes(text string) ([]byte, error) {
+func (this *API_Util) Text2AudioBytes(text string, t TSNAudioType) ([]byte, error) {
 	this.genCredentials()
 	param := url.Values{}
 	param.Set("tex", text)
@@ -30,6 +39,11 @@ func (this *API_Util) Text2AudioBytes(text string) ([]byte, error) {
 	param.Set("cuid", this.Cuid)
 	param.Set("ctp", "1")
 	param.Set("lan", "zh")
+	param.Set("aue", string(t))
+
+	/*
+		aue	选填	3为mp3格式(默认)； 4为pcm-16k；5为pcm-8k；6为wav（内容同pcm-16k）; 注意aue=4或者6是语音识别要求的格式，但是音频内容不是语音识别要求的自然人发音，所以识别效果会受影响。
+	*/
 
 	response, err := http.PostForm(TSN_URL, param)
 	defer response.Body.Close()
@@ -43,9 +57,13 @@ func (this *API_Util) Text2AudioBytes(text string) ([]byte, error) {
 	}
 
 	contentType := response.Header.Get("Content-type")
-	if "audio/mp3" == contentType {
+	switch contentType {
+	case "audio/wav",
+		"audio/mp3",
+		"audio/basic;codec=pcm;rate=16000;channel=1",
+		"audio/basic;codec=pcm;rate=8000;channel=1":
 		return body, nil
-	} else {
+	default:
 		var errMsg API_Response
 		err = json.Unmarshal(body, &errMsg)
 		if nil != err {
@@ -53,4 +71,5 @@ func (this *API_Util) Text2AudioBytes(text string) ([]byte, error) {
 		}
 		return nil, fmt.Errorf("%+v", errMsg.Err_msg)
 	}
+
 }

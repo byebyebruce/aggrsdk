@@ -19,8 +19,9 @@ const (
 	WAV    TSNAudioType = "6" // 6为wav
 )
 
+// Text2AudioFile 文字合成语音
 func (this *BaiduAI) Text2AudioFile(filePath, text string, t TSNAudioType) error {
-	body, err := this.Text2AudioBytes(text, t)
+	body, err := this.Text2AudioBuffer(text, t)
 	if err != nil {
 		return err
 	}
@@ -31,7 +32,8 @@ func (this *BaiduAI) Text2AudioFile(filePath, text string, t TSNAudioType) error
 	return nil
 }
 
-func (this *BaiduAI) Text2AudioBytes(text string, t TSNAudioType) ([]byte, error) {
+// Text2AudioBuffer 文字合成语音buffer
+func (this *BaiduAI) Text2AudioBuffer(text string, t TSNAudioType) ([]byte, error) {
 	this.genCredentials()
 	param := url.Values{}
 	param.Set("tex", text)
@@ -71,5 +73,4 @@ func (this *BaiduAI) Text2AudioBytes(text string, t TSNAudioType) ([]byte, error
 		}
 		return nil, fmt.Errorf("%+v", errMsg.Err_msg)
 	}
-
 }

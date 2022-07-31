@@ -21,6 +21,7 @@ type VOPResponse struct {
 	Sn       string   `json:"sn"`
 }
 
+// Reader2Text wav(16k)语音识别
 func (this *BaiduAI) Reader2Text(reader io.Reader) (string, error) {
 	this.genCredentials()
 	// POST http://vop.baidu.com/server_api?dev_pid=1537&cuid=******&token=1.a6b7dbd428f731035f771b8d********.86400.1292922000-2346678-124328
@@ -42,6 +43,7 @@ func (this *BaiduAI) Reader2Text(reader io.Reader) (string, error) {
 	return resp.Result[0], nil
 }
 
+// Audio2Text wav文件(16k)语音识别
 func (this *BaiduAI) Audio2Text(wavFile string) (string, error) {
 	r, err := ioutil.ReadFile(wavFile)
 	if err != nil {

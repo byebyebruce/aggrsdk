@@ -76,7 +76,8 @@ func HTTPPostJSON(u string, req, resp interface{}) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(body))
+	// debug
+	// fmt.Println(string(body))
 	if err := json.Unmarshal(body, resp); err != nil {
 		return err
 	}

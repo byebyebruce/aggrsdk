@@ -40,7 +40,7 @@ func TestAASR(t *testing.T) {
 func TestChat(t *testing.T) {
 	a := NewBaiduAI(apiKey, apiSecret)
 	service := os.Getenv("baidu_chat")
-	answer, err := a.Chat(service, "今天北京天气怎么样")
+	answer, err := a.Chat(service, "讲个笑话吧")
 	if err != nil {
 		t.Error(err.Error())
 	}

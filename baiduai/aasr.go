@@ -107,6 +107,7 @@ func (this *BaiduAI) queryAASRTask(taskId string) (bool, DetailedResult, error) 
 	}
 }
 
+// QueryAASR 音频转文字
 func (this *BaiduAI) QueryAASR(audioURL string,
 	format string, /*wav pcm*/
 	pid int /*[80001（中文语音近场识别模型极速版）, 1737（英文模型）] */) (DetailedResult, error) {

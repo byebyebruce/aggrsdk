@@ -1,4 +1,4 @@
-package baidu
+package baiduai
 
 import (
 	"encoding/json"
@@ -19,7 +19,7 @@ const (
 	WAV    TSNAudioType = "6" // 6为wav
 )
 
-func (this *API_Util) Text2AudioFile(filePath, text string, t TSNAudioType) error {
+func (this *BaiduAI) Text2AudioFile(filePath, text string, t TSNAudioType) error {
 	body, err := this.Text2AudioBytes(text, t)
 	if err != nil {
 		return err
@@ -31,7 +31,7 @@ func (this *API_Util) Text2AudioFile(filePath, text string, t TSNAudioType) erro
 	return nil
 }
 
-func (this *API_Util) Text2AudioBytes(text string, t TSNAudioType) ([]byte, error) {
+func (this *BaiduAI) Text2AudioBytes(text string, t TSNAudioType) ([]byte, error) {
 	this.genCredentials()
 	param := url.Values{}
 	param.Set("tex", text)

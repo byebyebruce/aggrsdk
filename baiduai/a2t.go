@@ -1,4 +1,4 @@
-package baidu
+package baiduai
 
 import (
 	"bytes"
@@ -21,7 +21,7 @@ type VOPResponse struct {
 	Sn       string   `json:"sn"`
 }
 
-func (this *API_Util) Reader2Text(reader io.Reader) (string, error) {
+func (this *BaiduAI) Reader2Text(reader io.Reader) (string, error) {
 	this.genCredentials()
 	// POST http://vop.baidu.com/server_api?dev_pid=1537&cuid=******&token=1.a6b7dbd428f731035f771b8d********.86400.1292922000-2346678-124328
 	url := fmt.Sprintf("%s?cuid=%v&token=%s", VOP_URL, this.Cuid, this.Credentials.Access_token)
@@ -42,7 +42,7 @@ func (this *API_Util) Reader2Text(reader io.Reader) (string, error) {
 	return resp.Result[0], nil
 }
 
-func (this *API_Util) Audio2Text(wavFile string) (string, error) {
+func (this *BaiduAI) Audio2Text(wavFile string) (string, error) {
 	r, err := ioutil.ReadFile(wavFile)
 	if err != nil {
 		return "", err

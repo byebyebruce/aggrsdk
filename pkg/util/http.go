@@ -67,12 +67,16 @@ func HTTPPostJSON(u string, req, resp interface{}) error {
 	if err != nil {
 		return err
 	}
+	if httpResp.StatusCode != http.StatusOK {
+		return fmt.Errorf("http code %d", httpResp.StatusCode)
+	}
 	defer httpResp.Body.Close()
 
 	body, err := ioutil.ReadAll(httpResp.Body)
 	if err != nil {
 		return err
 	}
+	fmt.Println(string(body))
 	if err := json.Unmarshal(body, resp); err != nil {
 		return err
 	}

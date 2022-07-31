@@ -1,4 +1,4 @@
-package baidu
+package baiduai
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 
 // AASR_TASK_URL https://cloud.baidu.com/doc/SPEECH/s/ck5diijkt
 
-func (this *API_Util) createAASRTask(audioURL string,
+func (this *BaiduAI) createAASRTask(audioURL string,
 	format string, /*wav pcm*/
 	pid int /*[80001（中文语音近场识别模型极速版）, 1737（英文模型）] */) (string, error) {
 
@@ -56,7 +56,7 @@ type DetailedResult []struct {
 	BeginTime int      `json:"begin_time"`
 }
 
-func (this *API_Util) queryAASRTask(taskId string) (bool, DetailedResult, error) {
+func (this *BaiduAI) queryAASRTask(taskId string) (bool, DetailedResult, error) {
 	const (
 		AASR_TASK_RESULT_URL = "https://aip.baidubce.com/rpc/2.0/aasr/v1/query"
 	)
@@ -107,7 +107,7 @@ func (this *API_Util) queryAASRTask(taskId string) (bool, DetailedResult, error)
 	}
 }
 
-func (this *API_Util) QueryAASR(audioURL string,
+func (this *BaiduAI) QueryAASR(audioURL string,
 	format string, /*wav pcm*/
 	pid int /*[80001（中文语音近场识别模型极速版）, 1737（英文模型）] */) (DetailedResult, error) {
 	this.genCredentials()

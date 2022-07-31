@@ -1,11 +1,11 @@
-package baidu
+package baiduai
 
 import (
 	"fmt"
 	"time"
 )
 
-func (this *API_Util) Trans(audioURL string,
+func (this *BaiduAI) Trans(audioURL string,
 	format string, /*wav pcm*/
 	pid int /*[80001（中文语音近场识别模型极速版）, 1737（英文模型）] */) (DetailedResult, error) {
 

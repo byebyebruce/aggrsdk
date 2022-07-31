@@ -1,4 +1,4 @@
-package baidu
+package baiduai
 
 import (
 	"os"
@@ -11,7 +11,7 @@ var (
 )
 
 func TestText2AudioFile(t *testing.T) {
-	a := NewAPI_Util(apiKey, apiSecret)
+	a := NewBaiduAI(apiKey, apiSecret)
 	err := a.Text2AudioFile("tmp.wav", "请问今天北京的天气怎么样", WAV)
 	if err != nil {
 		t.Error(err.Error())
@@ -19,7 +19,7 @@ func TestText2AudioFile(t *testing.T) {
 }
 
 func TestAudio2Text(t *testing.T) {
-	a := NewAPI_Util(apiKey, apiSecret)
+	a := NewBaiduAI(apiKey, apiSecret)
 	text, err := a.Audio2Text("16k.wav")
 	if err != nil {
 		t.Error(err.Error())
@@ -28,11 +28,21 @@ func TestAudio2Text(t *testing.T) {
 }
 
 func TestAASR(t *testing.T) {
-	a := NewAPI_Util(apiKey, apiSecret)
+	a := NewBaiduAI(apiKey, apiSecret)
 	tmp := "http://127.0.0.1:8088/fs/a.mp4_audio.wav"
 	text, err := a.QueryAASR(tmp, "wav", 1737)
 	if err != nil {
 		t.Error(err.Error())
 	}
 	t.Log(text)
+}
+
+func TestChat(t *testing.T) {
+	a := NewBaiduAI(apiKey, apiSecret)
+	service := os.Getenv("baidu_chat")
+	answer, err := a.Chat(service, "今天北京天气怎么样")
+	if err != nil {
+		t.Error(err.Error())
+	}
+	t.Log(answer)
 }

@@ -1,4 +1,4 @@
-package baidu
+package baiduai
 
 import (
 	"encoding/json"
@@ -147,20 +147,20 @@ type API_Response struct {
 	Idx     int    `json:"idx"`
 }
 
-type API_Util struct {
+type BaiduAI struct {
 	api_key, secret_key   string
 	Credentials           Credentials_Response
 	Cuid                  string
 	lastGenCredentialTime int64
 }
 
-func NewAPI_Util(api_key, secret_key string) *API_Util {
-	util := &API_Util{api_key: api_key, secret_key: secret_key}
+func NewBaiduAI(api_key, secret_key string) *BaiduAI {
+	util := &BaiduAI{api_key: api_key, secret_key: secret_key}
 	util.genCredentials()
 	return util
 }
 
-func (this *API_Util) genCredentials() {
+func (this *BaiduAI) genCredentials() {
 	if time.Now().Unix()-this.lastGenCredentialTime < 60*60*24*7 {
 		return
 	}
